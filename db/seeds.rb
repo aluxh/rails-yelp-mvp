@@ -13,7 +13,11 @@
     address: Faker::Address.full_address,
     phone_number: Faker::PhoneNumber.phone_number,
     category: ["chinese","italian","japanese","french","belgian"].sample)
-  review = Review.new(content: Faker::Restaurant.review, rating: rand(0..5))
-  review.restaurant = restaurant
-  review.save!
+
+  10.times do
+    review = Review.new(content: Faker::Restaurant.review, rating: rand(0..5))
+    review.restaurant = restaurant
+    review.save!
+  end
+
 end

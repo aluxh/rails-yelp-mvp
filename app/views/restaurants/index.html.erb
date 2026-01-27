@@ -1,1 +1,15 @@
-<h1>Restaurants</h1>
+<h1 class="my-5">Restaurants</h1>
+
+<%= link_to "Add a restaurant", new_restaurant_path %>
+
+<% @restaurants.each do |restaurant| %>
+  <%= link_to restaurant_path(restaurant) do %>
+    <h2><%= restaurant.name %></h2>
+  <% end %>
+
+  <ul>
+    <li><%= restaurant.address %></li>
+    <li><%= restaurant.category %></li>
+    <li><%= restaurant.phone_number %></li>
+  </ul>
+<% end %>
