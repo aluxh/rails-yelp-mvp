@@ -1,17 +1,42 @@
-<h1 class="my-5"><%= @restaurant.name %></h1>
+<div class="card mt-5 shadow">
+  <div class="card-body p-4">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <div>
+        <h1 class="card-title mb-2"><%= @restaurant.name %></h1>
+        <span class="badge bg-danger mb-2"><%= @restaurant.category.capitalize %></span>
+      </div>
+      <%= link_to "Submit a review", new_restaurant_review_path(@restaurant), class: "btn btn-outline-danger mb-3" %>
+    </div>
 
-<p>Address: <%= @restaurant.address %></p>
-<p>Phone: <%= @restaurant.phone_number %></p>
-<p>Type of Cuisine: <%= @restaurant.category %></p>
+    <div class="mb-3">
+      <span class="fs-4"><%= "⭐️" * @restaurant.average_rating %></span>
+      <span class="text-muted ms-2"><%= @restaurant.average_rating %> (<%= @restaurant.reviews.count %> reviews)</span>
+    </div>
 
-<h2>Reviews</h2>
-<%= link_to "Submit a review", new_restaurant_review_path(@restaurant) %>
-<ul>
-  <% @restaurant.reviews.each do |review| %>
-    <li>Rating: <%= review.rating %> - <%= review.content %></li>
-  <% end %>
-</ul>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-1"><i class="bi bi-geo-alt"></i> <strong>Address:</strong> <%= @restaurant.address %></p>
+      </div>
+      <div class="col-md-6">
+        <p class="mb-1"><i class="bi bi-telephone"></i> <strong>Phone:</strong> <%= @restaurant.phone_number %></p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<hr>
 
-<%= link_to "Back to home", restaurants_path %>
+<h3 class="my-5">Recommended Reviews</h3>
+
+<% @restaurant.reviews.each do |review| %>
+  <div class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <div class="fs-4"><%= "⭐️" * review.rating %></div>
+        <small class="text-muted"><%= review.rating %>/5</small>
+      </div>
+      <p class="card-text fst-italic mb-0"><%= review.content %></p>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to "Back to home", restaurants_path, class: "btn btn-outline-danger my-3" %>

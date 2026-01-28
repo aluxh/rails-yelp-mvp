@@ -1,11 +1,32 @@
-<h1>Review</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5 shadow">
+        <div class="card-body p-4">
+          <h1 class="card-title mb-2">Write a Review</h1>
+          <p class="text-muted mb-4">for <%= @restaurant.name %></p>
 
-<%= simple_form_for([@restaurant, @review]) do |f| %>
-  <%= f.input :content %>
-  <%= f.input :rating %>
-  <%= f.submit %>
-<% end %>
+          <%= simple_form_for([@restaurant, @review]) do |f| %>
+            <%= f.input :rating,
+                        collection: (0..5).to_a.reverse,
+                        label: 'Rating',
+                        input_html: { class: 'form-select' },
+                        wrapper_html: { class: 'mb-3' },
+                        prompt: 'Select your rating (0-5 stars)' %>
 
-<hr>
+            <%= f.input :content,
+                        as: :text,
+                        label: 'Your Review',
+                        input_html: { rows: 5, placeholder: 'Share your experience...' },
+                        wrapper_html: { class: 'mb-4' } %>
 
-<%= link_to "Back", restaurant_path(@restaurant) %>
+            <div class="d-flex gap-2">
+              <%= f.submit "Submit Review", class: "btn btn-danger flex-grow-1" %>
+              <%= link_to "Cancel", restaurant_path(@restaurant), class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

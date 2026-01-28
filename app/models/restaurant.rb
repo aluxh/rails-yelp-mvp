@@ -4,4 +4,8 @@ class Restaurant < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
   validates :category, inclusion: { in: %w[chinese italian japanese french belgian] }
+
+  def average_rating
+    reviews.average(:rating).to_f.round(1)
+  end
 end

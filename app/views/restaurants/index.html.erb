@@ -1,15 +1,30 @@
 <h1 class="my-5">Restaurants</h1>
 
-<%= link_to "Add a restaurant", new_restaurant_path %>
-
+<div class="row">
 <% @restaurants.each do |restaurant| %>
-  <%= link_to restaurant_path(restaurant) do %>
-    <h2><%= restaurant.name %></h2>
-  <% end %>
+  <div class="col-md-3 mb-3">
+    <div class="card h-100 shadow-sm hover-shadow">
+      <div class="card-body d-flex flex-column">
+        <div class="mb-3">
+          <h4 class="card-title mb-2"><%= restaurant.name %></h4>
+          <span class="badge bg-danger"><%= restaurant.category.capitalize %></span>
+        </div>
 
-  <ul>
-    <li><%= restaurant.address %></li>
-    <li><%= restaurant.category %></li>
-    <li><%= restaurant.phone_number %></li>
-  </ul>
+        <div class="mb-2">
+          <span class="fs-5"><%= "⭐️" * restaurant.average_rating %></span>
+          <small class="text-muted ms-1"><%= restaurant.average_rating %></small>
+          <small class="text-muted">(<%= restaurant.reviews.count %> reviews)</small>
+        </div>
+
+        <p class="card-text text-muted mb-3">
+          <i class="fa-solid fa-location-dot"></i> <%= restaurant.address %>
+        </p>
+
+        <div class="mt-auto">
+          <%= link_to "View Restaurant", restaurant_path(restaurant), class: "btn btn-outline-danger btn-sm w-100" %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
+</div>

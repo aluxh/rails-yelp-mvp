@@ -1,13 +1,36 @@
-<h1 class="my-5">Add a restaurant</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5 shadow">
+        <div class="card-body p-4">
+          <h1 class="card-title mb-4">Add a New Restaurant</h1>
 
-<%= simple_form_for(@restaurant) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :address %>
-  <%= f.input :phone_number %>
-  <%= f.input :category %>
-  <%= f.submit %>
-<% end %>
+          <%= simple_form_for(@restaurant) do |f| %>
+            <%= f.input :name,
+                        label: 'Restaurant Name',
+                        wrapper_html: { class: 'mb-3' } %>
 
-<hr>
+            <%= f.input :address,
+                        label: 'Address',
+                        wrapper_html: { class: 'mb-3' } %>
 
-<%= link_to "Back to home", restaurants_path %>
+            <%= f.input :phone_number,
+                        label: 'Phone Number',
+                        wrapper_html: { class: 'mb-3' } %>
+
+            <%= f.input :category,
+                        collection: ['chinese', 'italian', 'japanese', 'french', 'belgian'].map{|c| c.capitalize},
+                        label: 'Category',
+                        input_html: { class: 'form-select' },
+                        wrapper_html: { class: 'mb-4' } %>
+
+            <div class="d-flex gap-2">
+              <%= f.submit "Create Restaurant", class: "btn btn-danger flex-grow-1" %>
+              <%= link_to "Cancel", restaurants_path, class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
